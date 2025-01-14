@@ -5,8 +5,40 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Clock</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script
+      src="https://kit.fontawesome.com/a906d10607.js"
+      crossorigin="anonymous"
+    ></script>
   </head>
   <body>
+    <div class="px-7">
+      <div id="name" class="text-2xl">Clock</div>
+      <div
+        id="box"
+        class="flex flex-col justify-center items-center min-h-screen"
+      >
+        <div id="time" class="text-black text-4xl font-semibold"></div>
+        <div id="date" class="text-black/50 text-lg font-semibold"></div>
+      </div>
+      <footer class="flex justify-around w-full fixed bottom-0 -left-1 p-2">
+        <button id="clock" class="flex flex-col items-center">
+          <i class="fa-solid fa-clock fa-xl" style="color: #797a7c"></i>
+          <p class="text-xs text-gray-500 mt-3">Clock</p>
+        </button>
+        <button id="stopwatch" class="flex flex-col items-center">
+          <i class="fa-solid fa-stopwatch fa-xl" style="color: #797a7c"></i>
+          <p class="text-xs text-gray-500 mt-3">Stopwatch</p>
+        </button>
+        <button id="timer" class="flex flex-col items-center">
+          <i class="fa-solid fa-hourglass-end fa-xl" style="color: #797a7c"></i>
+          <p class="text-xs text-gray-500 mt-3">Timer</p>
+        </button>
+        <button id="timer" class="flex flex-col items-center justify-center">
+          <i class="fa-solid fa-bell fa-xl" style="color: #797a7c"></i>
+          <p class="text-xs text-gray-500 mt-3">Alarm</p>
+        </button>
+      </footer>
+    </div>
     <script src="/index.js"></script>
   </body>
 </html>
