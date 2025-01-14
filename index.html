@@ -11,16 +11,20 @@
     ></script>
   </head>
   <body>
-    <div class="px-7">
+    <div class="px-7 bg-gray-100">
       <div id="name" class="text-2xl">Clock</div>
       <div
         id="box"
         class="flex flex-col justify-center items-center min-h-screen"
       >
-        <div id="time" class="text-black text-4xl font-semibold"></div>
+        <div id="time" class="text-black text-4xl font-semibold">Alarm</div>
         <div id="date" class="text-black/50 text-lg font-semibold"></div>
       </div>
       <footer class="flex justify-around w-full fixed bottom-0 -left-1 p-2">
+        <button id="timer" class="flex flex-col items-center justify-center">
+          <i class="fa-solid fa-bell fa-xl" style="color: #797a7c"></i>
+          <p class="text-xs text-gray-500 mt-3">Alarm</p>
+        </button>
         <button id="clock" class="flex flex-col items-center">
           <i class="fa-solid fa-clock fa-xl" style="color: #797a7c"></i>
           <p class="text-xs text-gray-500 mt-3">Clock</p>
@@ -33,10 +37,7 @@
           <i class="fa-solid fa-hourglass-end fa-xl" style="color: #797a7c"></i>
           <p class="text-xs text-gray-500 mt-3">Timer</p>
         </button>
-        <button id="timer" class="flex flex-col items-center justify-center">
-          <i class="fa-solid fa-bell fa-xl" style="color: #797a7c"></i>
-          <p class="text-xs text-gray-500 mt-3">Alarm</p>
-        </button>
+        
       </footer>
     </div>
     <script src="/index.js"></script>
