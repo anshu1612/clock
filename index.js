@@ -1,4 +1,7 @@
 let isRunning = false;
+let stopwatchInterval = null;
+let stopwatchTimeInMillis = 0;
+
 function init() {
   const stopwatch = document.getElementById("stopwatch");
   const timer = document.getElementById("timer");
@@ -8,7 +11,8 @@ function init() {
 }
 
 function handleStopwatch() {
-  stopwatch.disabled=true;
+  isRunning = false;
+  stopwatch.disabled = true;
   const container = document.getElementById("box");
   container.innerHTML = "";
   document.getElementById("name").textContent = "Stopwatch";
@@ -31,14 +35,14 @@ function handleStopwatch() {
   playBtn.appendChild(playIcon);
   btnDiv.appendChild(playBtn);
   container.appendChild(btnDiv);
-  
+
   playBtn.addEventListener("click", () => {
     isRunning = true;
-    playStopwatch(stopwatchTime, isRunning, btnDiv);
+    playStopwatch(stopwatchTime, btnDiv);
   });
 }
 
-function playStopwatch(stopwatchTime, isRunning, btnDiv) {
+function playStopwatch(stopwatchTime, btnDiv) {
   btnDiv.innerHTML = "";
 
   const resetBtn = document.createElement("button");
@@ -61,11 +65,13 @@ function playStopwatch(stopwatchTime, isRunning, btnDiv) {
   pauseBtn.appendChild(pauseIcon);
   btnDiv.appendChild(pauseBtn);
 
-  resetBtn.addEventListener("click",handleStopwatch);
+  resetBtn.addEventListener("click", handleStopwatch);
+  pauseBtn.addEventListener("click", () => {
+    pauseStopwatch(stopwatchTime, btnDiv);
+  });
 
-  let stopwatchTimeInMillis = 0;
   if (isRunning) {
-    setInterval(function () {
+    stopwatchInterval = setInterval(function () {
       stopwatchTimeInMillis += 100;
       const minutes = Math.floor(stopwatchTimeInMillis / 60000);
       const seconds = Math.floor((stopwatchTimeInMillis % 60000) / 1000);
@@ -73,6 +79,33 @@ function playStopwatch(stopwatchTime, isRunning, btnDiv) {
       stopwatchTime.textContent = minutes + ":" + seconds + "." + milliseconds;
     }, 100);
   }
+}
+
+function pauseStopwatch(stopwatchTime, btnDiv) {
+  clearInterval(stopwatchInterval);
+  btnDiv.innerHTML = "";
+  const resetBtn = document.createElement("button");
+  resetBtn.className = "bg-white px-6  rounded-full mt-36 mr-8";
+
+  const resetIcon = document.createElement("i");
+  resetIcon.className = "fas fa-stop";
+  resetIcon.style = "color: #074ef2";
+
+  resetBtn.appendChild(resetIcon);
+  btnDiv.appendChild(resetBtn);
+
+  const replay = document.createElement("button");
+  replay.className = "bg-white px-6  rounded-full mt-36 mr-8";
+  const replayIcon = document.createElement("i");
+  replayIcon.className = "fa-solid fa-play";
+  replayIcon.style = "color: #074ef2";
+  replay.appendChild(replayIcon);
+  btnDiv.appendChild(replay);
+
+  resetBtn.addEventListener("click", handleStopwatch);
+  replay.addEventListener("click", () => {
+    playStopwatch(stopwatchTime, btnDiv);
+  });
 }
 
 function updateTime() {
