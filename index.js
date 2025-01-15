@@ -1,3 +1,4 @@
+const container = document.getElementById("box");
 let isRunning = false;
 let stopwatchInterval = null;
 let stopwatchTimeInMillis = 0;
@@ -8,12 +9,34 @@ function init() {
   const alarm = document.getElementById("alarm");
   const clock = document.getElementById("clock");
   stopwatch.addEventListener("click", handleStopwatch);
+  clock.addEventListener("click", handleClock);
 }
 
+// CLOCK FUNCTIONS//
+function handleClock() {
+  stopwatch.disabled=false;
+  container.innerHTML = "";
+  document.getElementById("name").textContent = "Clock";
+  const displayTime = document.createElement("div");
+  displayTime.className = "text-black text-4xl font-semibold";
+  const displayDate = document.createElement("div");
+  displayDate.className = "text-black/50 text-lg font-semibold";
+  container.appendChild(displayTime);
+  container.appendChild(displayDate);
+  
+
+  setInterval(()=>{
+  const date = new Date();
+  let currTime = date.toLocaleTimeString();
+  let currDate = date.toLocaleDateString("en-GB");
+  displayTime.textContent = currTime;
+  displayDate.textContent = currDate;},1000)
+}
+
+// STOPWATCH FUNCTIONS //
 function handleStopwatch() {
   isRunning = false;
   stopwatch.disabled = true;
-  const container = document.getElementById("box");
   container.innerHTML = "";
   document.getElementById("name").textContent = "Stopwatch";
 
@@ -108,11 +131,4 @@ function pauseStopwatch(stopwatchTime, btnDiv) {
   });
 }
 
-function updateTime() {
-  const date = new Date();
-  let currTime = date.toLocaleTimeString();
-  let currDate = date.toLocaleDateString("en-GB");
-  document.getElementById("time").textContent = currTime;
-  document.getElementById("date").textContent = currDate;
-}
 init();
