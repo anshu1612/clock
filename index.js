@@ -5,16 +5,134 @@ let interval = null;
 let stopwatchTimeInMillis = 0;
 let timerTimeInMillis;
 let isRunningTimer = false;
+const alarmPage = document.getElementById("alarmPage");
 
 function init() {
   const stopwatch = document.getElementById("stopwatch");
   const timer = document.getElementById("timer");
   const alarm = document.getElementById("alarm");
   const clock = document.getElementById("clock");
-  stopwatch.addEventListener("click", handleStopwatch);
-  clock.addEventListener("click", handleClock);
-  timer.addEventListener("click", handleTimer);
+  stopwatch.addEventListener("click", () => {
+    alarmPage.classList.replace("flex", "hidden");
+    container.classList.replace("hidden", "flex");
+    handleStopwatch();
+  });
+  clock.addEventListener("click", () => {
+    alarmPage.classList.replace("flex", "hidden");
+    container.classList.replace("hidden", "flex");
+    handleClock();
+  });
+  timer.addEventListener("click", () => {
+    alarmPage.classList.replace("flex", "hidden");
+    container.classList.replace("hidden", "flex");
+    handleTimer();
+  });
+  alarm.addEventListener("click", () => {
+    document.getElementById("name").textContent = "Alarm";
+    alarmPage.classList.replace("hidden", "flex");
+    container.classList.replace("flex", "hidden");
+  });
 }
+
+// ALARM FUNCTIONS
+let alarmtime = [];
+const modal = document.getElementById("modal");
+const plusBtn = document.getElementById("plusBtn");
+const setAlarm = document.getElementById("setAlarm");
+
+plusBtn.addEventListener("click", () => {
+  modal.classList.replace("hidden", "flex");
+  document
+    .getElementById("alarmPage")
+    .classList.add("overflow-hidden", "bg-blur");
+});
+
+setAlarm.addEventListener("click", () => {
+  const alarm = document.getElementById("alarmInput").value;
+
+  alarmtime.push(alarm);
+  displayAlarm();
+  settingAlarm(alarm);
+  modal.classList.replace("flex", "hidden");
+  document
+    .getElementById("alarmList")
+    .classList.remove("overflow-hidden", "bg-blur");
+});
+function settingAlarm(alarm) {
+  const time = new Date(alarm);
+  const currentTime = new Date();
+  let timeDifference = time - currentTime;
+  setTimeout(() => {
+    window.alert("Alarm");
+    deleteAlarm(alarmtime.indexOf(alarm));
+  }, timeDifference);
+}
+function displayAlarm() {
+  const alarmList = document.getElementById("alarmList");
+  alarmList.innerHTML = "";
+
+  alarmtime.forEach((alarm, index) => {
+    const alarmDiv = document.createElement("div");
+    alarmDiv.className =
+      "alarm-item bg-white rounded-lg flex justify-between items-center p-2 border-b";
+    const selectedDate = new Date(alarm);
+    const formattedTime = selectedDate.toLocaleTimeString([], {
+      hour: "2-digit",
+      minute: "2-digit",
+    });
+    const formattedDate = selectedDate.toLocaleDateString();
+
+    const timeText = document.createElement("div");
+    timeText.textContent = formattedTime;
+    timeText.className = "text-lg";
+
+    const dateText = document.createElement("div");
+    dateText.textContent = formattedDate;
+    dateText.className = "ml-0 text-xs text-gray-500";
+
+    const deleteBtn = document.createElement("button");
+    deleteBtn.className = "bg-white px-3 py-1 rounded";
+    const trashIcon = document.createElement("i");
+    trashIcon.className = "fa-solid fa-trash-can";
+    trashIcon.style = "color: #074ef2;";
+    deleteBtn.appendChild(trashIcon);
+    deleteBtn.addEventListener("click", () => deleteAlarm(index));
+
+    alarmDiv.appendChild(timeText);
+    alarmDiv.appendChild(dateText);
+    alarmDiv.appendChild(deleteBtn);
+
+    alarmList.appendChild(alarmDiv);
+  });
+}
+
+function deleteAlarm(index) {
+  alarmtime.splice(index, 1);
+  displayAlarm();
+}
+
+// function check() {
+//   alarmtime.forEach((alarm, i) => {
+//     const now = new Date();
+//     const targetTime = new Date(now);
+//     targetTime.setHours(alarm.hour, alarm.minute, 0, 0);
+//     console.log(now.setTi, targetTime.toLocaleTimeString());
+
+//     // Calculate the difference in milliseconds
+//     let timeDifference = targetTime - now;
+//     console.log(timeDifference);
+//     // setTimeout(() => {
+//     //   // const date = new Date();
+//     //   // const currHour = date.getHours() % 12 || 12;
+//     //   // const currMinute = date.getMinutes().toString().padStart(2, "0");
+//     //   // const currPeriod = date.getHours() >= 12 ? "PM" : "AM";
+//     //   // if(alarm.hour==currHour && alarm.minute==currMinute && alarm.period==currPeriod){
+//     //   //   window.alert("Alarm Time")
+//     //   }
+
+//     // }, 1000);
+//   });
+// }
 
 // CLOCK FUNCTIONS//
 function handleClock() {
