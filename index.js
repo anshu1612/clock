@@ -111,29 +111,6 @@ function deleteAlarm(index) {
   displayAlarm();
 }
 
-// function check() {
-//   alarmtime.forEach((alarm, i) => {
-//     const now = new Date();
-//     const targetTime = new Date(now);
-//     targetTime.setHours(alarm.hour, alarm.minute, 0, 0);
-//     console.log(now.setTi, targetTime.toLocaleTimeString());
-
-//     // Calculate the difference in milliseconds
-//     let timeDifference = targetTime - now;
-//     console.log(timeDifference);
-//     // setTimeout(() => {
-//     //   // const date = new Date();
-//     //   // const currHour = date.getHours() % 12 || 12;
-//     //   // const currMinute = date.getMinutes().toString().padStart(2, "0");
-//     //   // const currPeriod = date.getHours() >= 12 ? "PM" : "AM";
-//     //   // if(alarm.hour==currHour && alarm.minute==currMinute && alarm.period==currPeriod){
-//     //   //   window.alert("Alarm Time")
-//     //   }
-
-//     // }, 1000);
-//   });
-// }
-
 // CLOCK FUNCTIONS//
 function handleClock() {
   stopwatch.disabled = false;
