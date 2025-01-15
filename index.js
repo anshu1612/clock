@@ -49,7 +49,12 @@ plusBtn.addEventListener("click", () => {
 
 setAlarm.addEventListener("click", () => {
   const alarm = document.getElementById("alarmInput").value;
-
+ 
+  if(new Date(alarm) < new Date()){
+    console.log("invalid")
+    window.alert("invalid");
+  }
+  if(new Date(alarm) > new Date() ){
   alarmtime.push(alarm);
   displayAlarm();
   settingAlarm(alarm);
@@ -57,6 +62,7 @@ setAlarm.addEventListener("click", () => {
   document
     .getElementById("alarmList")
     .classList.remove("overflow-hidden", "bg-blur");
+  }
 });
 function settingAlarm(alarm) {
   const time = new Date(alarm);
@@ -253,7 +259,7 @@ function handleTimer() {
 
   const hr = document.createElement("input");
   hr.className =
-    "border rounded text-4xl w-10 bg-gray-100 outline-none text-center";
+    "border rounded text-4xl w-10 md:w-20 bg-gray-100 outline-none text-center";
   hr.type = "number";
   hr.id = "hourInput";
   hr.min = 0;
@@ -268,7 +274,7 @@ function handleTimer() {
 
   const min = document.createElement("input");
   min.className =
-    "border rounded text-4xl w-10 bg-gray-100 outline-none text-center";
+    "border rounded text-4xl w-10 md:w-20 bg-gray-100 outline-none text-center";
   min.type = "number";
   min.id = "minInput";
   min.min = 0;
@@ -283,7 +289,7 @@ function handleTimer() {
 
   const sec = document.createElement("input");
   sec.className =
-    "border rounded text-4xl w-10 bg-gray-100 outline-none text-center";
+    "border rounded text-4xl w-10 md:w-20 bg-gray-100 outline-none text-center";
   sec.type = "number";
   sec.id = "secInput";
   sec.min = 0;
